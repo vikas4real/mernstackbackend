@@ -1,0 +1,7 @@
+git# Dependency directories
+node_modules/
+jspm_packages/
+# Optional npm cache directory
+.npm
+.env
+client/node_modules/
