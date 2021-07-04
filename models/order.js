@@ -15,7 +15,7 @@ const Cart = mongoose.model("Cart", cartSchema);
 const orderSchema = new mongoose.Schema(
    {
       products: [cartSchema],
-      txn_id: {},
+      txn_id: { type: String },
       total_amount: { type: Number },
       address: { type: String },
       status: {

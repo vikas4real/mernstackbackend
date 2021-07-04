@@ -43,7 +43,10 @@ exports.signin = (req, res) => {
          });
       }
       //Create TOKEN
-      const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+      const token = jwt.sign(
+         { _id: user._id, email: user.email },
+         process.env.SECRET
+      );
       //Put TOKEN in COOKIE
       res.cookie("token", token, { expire: new Date() + 9999 });
       //Send Response to FrontEND

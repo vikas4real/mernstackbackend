@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Category = require("../models/category");
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
@@ -23,7 +24,7 @@ exports.createProduct = (req, res) => {
 
    form.parse(req, (err, fields, file) => {
       if (err) {
-         return req.status(400).json({
+         return res.status(400).json({
             error: "Image file not supported",
          });
       }
@@ -81,7 +82,7 @@ exports.updateProduct = (req, res) => {
 
    form.parse(req, (err, fields, file) => {
       if (err) {
-         return req.status(400).json({
+         return res.status(400).json({
             error: "Image file not supported",
          });
       }
@@ -128,8 +129,8 @@ exports.deleteProduct = (req, res) => {
 };
 
 //Listing of Product
-exports.productListing = () => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+exports.productListing = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 24;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find()
       .select("-product_image")
@@ -142,6 +143,98 @@ exports.productListing = () => {
                error: "No Proucts Found",
             });
          }
+         return res.status(200).json({ products });
+      });
+};
+
+//<------ Get products by individual category -------->
+exports.getProductsMac = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Product.find({ category: "605e0858bc9a75065f5f21e8" })
+      .select("-product_image")
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec((err, products) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Proucts Found",
+            });
+         }
+         return res.status(200).json({ products });
+      });
+};
+
+exports.getProductsIphone = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Product.find({ category: "609273c326db5707c2064e14" })
+      .select("-product_image")
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec((err, products) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Proucts Found",
+            });
+         }
+         return res.status(200).json({ products });
+      });
+};
+
+exports.getProductsIpad = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Product.find({ category: "609273c826db5707c2064e15" })
+      .select("-product_image")
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec((err, products) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Proucts Found",
+            });
+         }
+         return res.status(200).json({ products });
+      });
+};
+
+exports.getProductsWatch = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Product.find({ category: "605e087fbc9a75065f5f21ea" })
+      .select("-product_image")
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec((err, products) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Proucts Found",
+            });
+         }
+         return res.status(200).json({ products });
+      });
+};
+
+exports.getProductsAccessories = (req, res) => {
+   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Product.find({ category: "60996179f81d5007b82dcb6f" })
+      .select("-product_image")
+      .populate("category")
+      .sort([[sortBy, "asc"]])
+      .limit(limit)
+      .exec((err, products) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Proucts Found",
+            });
+         }
+         return res.status(200).json({ products });
       });
 };
 

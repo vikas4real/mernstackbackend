@@ -1,4 +1,19 @@
 const { Order, Cart } = require("../models/order");
+const user = require("../models/user");
+
+//Create Order
+exports.createOrder = (req, res) => {
+   req.body.order.user = req.profile;
+   const order = new Order(req.body.order);
+   order.save((err, order) => {
+      if (err) {
+         return res.status(400).json({
+            error: "Failed to save order in DataBase!!",
+         });
+      }
+      res.json(order);
+   });
+};
 
 //GetOrderByID controller
 exports.getOrderById = (req, res, next, id) => {
@@ -15,31 +30,35 @@ exports.getOrderById = (req, res, next, id) => {
       });
 };
 
-//Create Order
-exports.createOrder = (req, res) => {
-   req.body.order.user = req.profile;
-   const order = new Order(req.body.order);
-   order.save((err, order) => {
-      if (err) {
-         return res.status(400).json({
-            error: "Failed to save order in DataBase!!",
-         });
-      }
-      res.json(order);
-   });
-};
-
-//Get All Orders
+//Get All Orders --- Actually used by admin
 exports.getAllOrders = (req, res) => {
    Order.find()
-      .populate("user", "_id name email")
-      .exec((err, order) => {
+      .populate("user", "_id fname lname email")
+      .exec((err, orders) => {
          if (err) {
             return res.status(400).json({
                error: "No Orders found in DataBase!!",
             });
          }
-         res.json(order);
+
+         res.json(orders);
+      });
+};
+
+//Get All Orders ---- For individual users
+exports.getAllUserOrders = (req, res) => {
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+   Order.find({ user: req.user._id })
+      .populate("user", "_id fname lname email")
+      .sort([[sortBy, "asc"]])
+      .exec((err, orders) => {
+         if (err) {
+            return res.status(400).json({
+               error: "No Orders found in DataBase!!",
+            });
+         }
+
+         res.json(orders);
       });
 };
 

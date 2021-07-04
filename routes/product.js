@@ -12,6 +12,11 @@ const {
    deleteProduct,
    productListing,
    getAllUniqueCategories,
+   getProductsMac,
+   getProductsIphone,
+   getProductsIpad,
+   getProductsWatch,
+   getProductsAccessories,
 } = require("../controllers/product");
 
 //Parameter Routes
@@ -29,7 +34,12 @@ router.post(
 router.get("/product", getProductById);
 router.get("/product/:productId", getProduct);
 router.get("/product/image/:productId", product_image);
-router.get("/product", productListing);
+router.get("/products", productListing);
+router.get("/mac", getProductsMac);
+router.get("/iphone", getProductsIphone);
+router.get("/ipad", getProductsIpad);
+router.get("/watch", getProductsWatch);
+router.get("/accessories", getProductsAccessories);
 router.put(
    "/product/:productId/:userId",
    isSignedIn,
