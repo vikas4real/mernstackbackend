@@ -48,7 +48,7 @@ exports.getAllOrders = (req, res) => {
 //Get All Orders ---- For individual users
 exports.getAllUserOrders = (req, res) => {
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
-   Order.find({ user: req.user._id })
+   Order.find({ user: user._id })
       .populate("user", "_id fname lname email")
       .sort([[sortBy, "asc"]])
       .exec((err, orders) => {
