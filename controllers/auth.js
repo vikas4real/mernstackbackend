@@ -6,19 +6,28 @@ var expressJwt = require("express-jwt");
 //SignUP Controller
 exports.signup = (req, res) => {
    const errors = validationResult(req);
+   const { email } = req.body;
    if (!errors.isEmpty()) {
       return res.status(422).json({
          error: errors.array()[0].msg,
       });
    }
-   const user = new User(req.body);
-   user.save((err, user) => {
-      if (err) {
+   User.findOne({ email: req.body.email }).then((user) => {
+      if (user) {
          return res.status(400).json({
-            err: "NOT able to save USER data in DB",
+            error: "User E-mail already exist",
+         });
+      } else {
+         const user = new User(req.body);
+         user.save((err, user) => {
+            if (err) {
+               return res.status(400).json({
+                  err: "NOT able to save USER data in DB",
+               });
+            }
+            res.json(user);
          });
       }
-      res.json(user);
    });
 };
 
