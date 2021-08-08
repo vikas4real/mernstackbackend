@@ -32,6 +32,7 @@ exports.getOrderById = (req, res, next, id) => {
 
 //Get All Orders --- Actually used by admin
 exports.getAllOrders = (req, res) => {
+   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Order.find()
       .populate("user", "_id fname lname email")
       .sort([[sortBy, "desc"]])
