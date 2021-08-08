@@ -50,7 +50,7 @@ exports.getAllUserOrders = (req, res) => {
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Order.find({ user: req.profile._id })
       .populate("user", "_id email")
-      .sort([[sortBy, "asc"]])
+      .sort([[sortBy, "desc"]])
       .exec((err, orders) => {
          if (err) {
             return res.status(400).json({
