@@ -34,6 +34,7 @@ exports.getOrderById = (req, res, next, id) => {
 exports.getAllOrders = (req, res) => {
    Order.find()
       .populate("user", "_id fname lname email")
+      .sort([[sortBy, "desc"]])
       .exec((err, orders) => {
          if (err) {
             return res.status(400).json({
