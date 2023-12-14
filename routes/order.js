@@ -29,7 +29,7 @@ router.post(
 );
 
 router.get(
-   "/order/all/:userId",
+   "/:userId/order/all",
    isSignedIn,
    isAuthenticated,
    isAdmin,
