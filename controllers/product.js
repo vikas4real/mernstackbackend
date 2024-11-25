@@ -149,13 +149,11 @@ exports.productListing = (req, res) => {
 
 //<------ Get products by individual category -------->
 exports.getProductsMac = (req, res) => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find({ category: "605e0858bc9a75065f5f21e8" })
       .select("-product_image")
       .populate("category")
       .sort([[sortBy, "asc"]])
-      .limit(limit)
       .exec((err, products) => {
          if (err) {
             return res.status(400).json({
@@ -167,13 +165,11 @@ exports.getProductsMac = (req, res) => {
 };
 
 exports.getProductsIphone = (req, res) => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find({ category: "609273c326db5707c2064e14" })
       .select("-product_image")
       .populate("category")
       .sort([[sortBy, "asc"]])
-      .limit(limit)
       .exec((err, products) => {
          if (err) {
             return res.status(400).json({
@@ -185,13 +181,11 @@ exports.getProductsIphone = (req, res) => {
 };
 
 exports.getProductsIpad = (req, res) => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find({ category: "609273c826db5707c2064e15" })
       .select("-product_image")
       .populate("category")
       .sort([[sortBy, "asc"]])
-      .limit(limit)
       .exec((err, products) => {
          if (err) {
             return res.status(400).json({
@@ -203,13 +197,11 @@ exports.getProductsIpad = (req, res) => {
 };
 
 exports.getProductsWatch = (req, res) => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find({ category: "605e087fbc9a75065f5f21ea" })
       .select("-product_image")
       .populate("category")
       .sort([[sortBy, "asc"]])
-      .limit(limit)
       .exec((err, products) => {
          if (err) {
             return res.status(400).json({
@@ -221,13 +213,11 @@ exports.getProductsWatch = (req, res) => {
 };
 
 exports.getProductsAccessories = (req, res) => {
-   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
    Product.find({ category: "60996179f81d5007b82dcb6f" })
       .select("-product_image")
       .populate("category")
       .sort([[sortBy, "asc"]])
-      .limit(limit)
       .exec((err, products) => {
          if (err) {
             return res.status(400).json({
